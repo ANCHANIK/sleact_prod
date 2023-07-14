@@ -44,7 +44,7 @@ const SignUp = () => {
       setSignUpError('');
       setSignUpSuccess(false);
       axios
-        .post('/api/users', {     // back port num : 3095
+        .post('/api/users', {     // back port num : 8081
         email,
         nickname,
         password,
@@ -60,6 +60,8 @@ const SignUp = () => {
     }
   }, [email, nickname, password, passwordCheck, mismatchError]);
 
+  console.log(data);
+  
   if (data === undefined) {
     return <>...로딩중</>
   }

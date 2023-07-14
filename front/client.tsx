@@ -9,7 +9,7 @@ import App from './layouts/App';
 
 axios.defaults.withCredentials = true;
 axios.defaults.baseURL =
-  process.env.NODE_ENV === 'production' ? 'https://sleact.nodebird.com' : 'http://localhost:3095';
+  process.env.NODE_ENV === 'production' ? 'https://sleact.nodebird.com' : 'http://34.64.251.46:8081';
 
 render(
   <BrowserRouter>

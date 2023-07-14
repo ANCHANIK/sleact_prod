@@ -12,7 +12,7 @@ interface Props {
   data: IDM | IChat;
 }
 
-const BACK_URL = process.env.NODE_ENV === 'development' ? 'http://localhost:3095' : null;
+const BACK_URL = process.env.NODE_ENV === 'development' ? 'http://34.64.251.46:8081' : null;
 const Chat: VFC<Props> = ({ data }) => {
   const { workspace } = useParams<{ workspace: string }>();
   const user = 'Sender' in data ? data.Sender : data.User;

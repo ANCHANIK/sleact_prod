@@ -1,7 +1,7 @@
 import io from 'socket.io-client';
 import { useCallback } from 'react';
 
-const backUrl = 'http://localhost:3095';
+const backUrl = 'http://34.64.251.46:8081';
 
 const sockets: { [key: string]: SocketIOClient.Socket } = {}; // 다양한 소켓 관리
 const useSocket = (workspace?: string): [SocketIOClient.Socket | undefined, () => void] => {
