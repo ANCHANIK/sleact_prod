@@ -12,8 +12,8 @@ const SignUp = () => {
 
   const [email, onChangeEmail] = useInput('');
   const [nickname, onChangeNickname] = useInput('');
-  const [password, , setPassword] = useInput('');
-  const [passwordCheck, , setPasswordCheck] = useInput('');
+  const [password, setPassword] = useInput('');
+  const [passwordCheck, setPasswordCheck] = useInput('');
   const [mismatchError, setMismatchError] = useState(false);
   const [signUpError, setSignUpError] = useState('');
   const [signUpSuccess, setSignUpSuccess] = useState(false);
@@ -37,9 +37,15 @@ const SignUp = () => {
   },[password]);
 
   const onSubmit = useCallback( (e) => {
+    
     e.preventDefault();
 
-    if(!mismatchError && nickname && password){
+    // validation
+    console.log({
+      email, nickname, password, passwordCheck
+    });    
+    
+    if(!mismatchError && email && nickname && password && passwordCheck){
       // 요청 보내기 전 초기화 작업
       setSignUpError('');
       setSignUpSuccess(false);
@@ -49,13 +55,15 @@ const SignUp = () => {
         nickname,
         password,
       })
-        .then((res) => {
-          setSignUpSuccess(true);
-        }) // 성공
-        .catch((err) => {
-          setSignUpError(err.response.data);
-        }) // 실패
-        .finally(() => {}); // 성공하든 실패하든 공통적으로 실행
+      .then((res) => {
+        console.log(res);
+        
+        setSignUpSuccess(true);
+      }) // 성공
+      .catch((err) => {
+        setSignUpError(err.response.data);
+      }) // 실패
+      .finally(() => {}); // 성공하든 실패하든 공통적으로 실행
 
     }
   }, [email, nickname, password, passwordCheck, mismatchError]);
@@ -103,7 +111,8 @@ const SignUp = () => {
             />
           </div>
           {mismatchError && <Error>비밀번호가 일치하지 않습니다.</Error>}
-          {!nickname && <Error>닉네임을 입력해주세요.</Error>}
+          {email && <Error>이메일을 입력해주세요.</Error>}
+          {nickname && <Error>닉네임을 입력해주세요.</Error>}
           {signUpError && <Error>{signUpError}</Error>}
           {signUpSuccess && <Success>회원가입되었습니다! 로그인해주세요.</Success>}
         </Label>
