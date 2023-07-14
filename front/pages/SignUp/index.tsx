@@ -59,8 +59,6 @@ const SignUp = () => {
 
     }
   }, [email, nickname, password, passwordCheck, mismatchError]);
-
-  console.log(data);
   
   if (data === undefined) {
     return <>...로딩중</>
