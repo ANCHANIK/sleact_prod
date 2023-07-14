@@ -818,6 +818,16 @@ router.post("/users", isNotLoggedIn, async (req, res, next) => {
 
 router.post("/users/login", isNotLoggedIn, (req, res, next) => {
   passport.authenticate("local", (err, user, info) => {
+
+    const email = req.body.email;
+    const password = req.body.password;
+
+    if (!email) {
+      return res.status(401).send("이메일을 입력해 주세요.");
+    }
+    if (!password) {
+      return res.status(401).send("비밀번호를 입력해 주세요.");
+    }
     if (err) {
       console.error(err);
       return next(err);

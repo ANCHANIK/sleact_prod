@@ -40,7 +40,7 @@ const Login = () => {
 
         })
         .catch((error) => {
-          setLoginError(error.response?.data?.statusCode === 401);
+          setLoginError(error.response?.status === 401 && error.response?.data);
         })
     },
     [email, password]
