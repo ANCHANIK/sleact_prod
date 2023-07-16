@@ -18,6 +18,9 @@ const SignUp = () => {
   const [signUpError, setSignUpError] = useState('');
   const [signUpSuccess, setSignUpSuccess] = useState(false);
 
+  const [validation, setValidation] = useState(true);
+  const [validationText, setValidationText] = useState('');
+
   // 중복 제거로 custom hook 제작
   // const onChangeEmail = useCallback( (e) => {
   //   setEmail(e.target.value);
@@ -25,15 +28,16 @@ const SignUp = () => {
   // const onChangeNickname = useCallback( (e) => {
   //   setNickname(e.target.value);
   // },[]);
-
+  
   const onChangePassword = useCallback( (e) => {
-    setPassword(e.target.value);
-    setMismatchError(e.target.value !== passwordCheck);
+    setPassword(e);
+    setMismatchError(e.target?.value !== passwordCheck);
+    
   },[passwordCheck]); // 함수 외부의 변수는 작성할 필요 없음
 
   const onChangePasswordCheck = useCallback( (e) => {
-    setPasswordCheck(e.target.value);
-    setMismatchError(e.target.value !== password);
+    setPasswordCheck(e);
+    setMismatchError(e.target?.value !== password);
   },[password]);
 
   const onSubmit = useCallback( (e) => {
@@ -41,9 +45,30 @@ const SignUp = () => {
     e.preventDefault();
 
     // validation
-    console.log({
-      email, nickname, password, passwordCheck
-    });    
+    // { (!validation && !nickname) && <Error>{validationText}</Error>}
+    // { (!validation && !password) && <Error>{validationText}</Error>}
+    // { (!validation && !passwordCheck) && <Error>{validationText}</Error>}
+
+    if(!email) {
+      setValidation(false);
+      setValidationText('이메일을 입력해 주세요');
+      return;
+    }
+    if(!nickname) {
+      setValidation(false);
+      setValidationText('닉네임을 입력해 주세요.');
+      return;
+    }
+    if(!password) {
+      setValidation(false);
+      setValidationText('비밀번호를 입력해 주세요.');
+      return;
+    }
+    if(!passwordCheck) {
+      setValidation(false);
+      setValidationText('비밀번호 확인을 입력해 주세요.');
+      return;
+    }
     
     if(!mismatchError && email && nickname && password && passwordCheck){
       // 요청 보내기 전 초기화 작업
@@ -110,9 +135,9 @@ const SignUp = () => {
               onChange={onChangePasswordCheck}
             />
           </div>
+          { !validation && <Error>{validationText}</Error>}
+          
           {mismatchError && <Error>비밀번호가 일치하지 않습니다.</Error>}
-          {email && <Error>이메일을 입력해주세요.</Error>}
-          {nickname && <Error>닉네임을 입력해주세요.</Error>}
           {signUpError && <Error>{signUpError}</Error>}
           {signUpSuccess && <Success>회원가입되었습니다! 로그인해주세요.</Success>}
         </Label>
