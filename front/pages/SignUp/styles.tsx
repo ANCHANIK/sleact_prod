@@ -89,6 +89,7 @@ export const Error = styled.div`
 export const Success = styled.div`
   color: #2eb67d;
   font-weight: bold;
+  margin: .5rem 0;
 `;
 
 export const LinkContainer = styled.p`
