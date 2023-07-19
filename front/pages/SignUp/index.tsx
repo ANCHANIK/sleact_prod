@@ -5,10 +5,11 @@ import useInput from "@hooks/useInput";
 import { Link } from 'react-router-dom';
 import useSWR from 'swr';
 import fetcher from '@utils/fetcher';
-import { Redirect } from 'react-router';
+import { Redirect, useHistory } from 'react-router';
 
 const SignUp = () => {
-  const {data} = useSWR('/api/users', fetcher);
+  const {data, mutate} = useSWR('/api/users', fetcher);
+  const history = useHistory();
 
   const [email, onChangeEmail] = useInput('');
   const [nickname, onChangeNickname] = useInput('');
@@ -85,6 +86,11 @@ const SignUp = () => {
       })
       .then((res) => {
         setSignUpSuccess(true);
+        if(res.data === "ok") {
+          setTimeout(() => {
+            history.push('/login');
+          }, 3000)
+        }
       }) // 성공
       .catch((err) => {
         setSignUpError(err.response.data);
@@ -102,7 +108,7 @@ const SignUp = () => {
   if (data) {
     return <Redirect to="/workspace/sleact/channel/일반" />
   }
-
+  
   return (
     <div id="container">
       <Header>Sleact</Header>
