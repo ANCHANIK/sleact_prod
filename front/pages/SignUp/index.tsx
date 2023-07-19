@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import { Form, Error, Label, Input, LinkContainer, Header, Button, Success } from './styles';
 import useInput from "@hooks/useInput";
@@ -28,6 +28,13 @@ const SignUp = () => {
   // const onChangeNickname = useCallback( (e) => {
   //   setNickname(e.target.value);
   // },[]);
+  useEffect(() => {
+    email.length > 0 && setValidation(true);
+    nickname.length > 0 && setValidation(true);
+    password.length > 0 && setValidation(true);
+    passwordCheck.length > 0 && setValidation(true);
+    
+  }, [data ,email, nickname, password, passwordCheck, signUpSuccess])
   
   const onChangePassword = useCallback( (e) => {
     setPassword(e);
@@ -45,10 +52,6 @@ const SignUp = () => {
     e.preventDefault();
 
     // validation
-    // { (!validation && !nickname) && <Error>{validationText}</Error>}
-    // { (!validation && !password) && <Error>{validationText}</Error>}
-    // { (!validation && !passwordCheck) && <Error>{validationText}</Error>}
-
     if(!email) {
       setValidation(false);
       setValidationText('이메일을 입력해 주세요');
@@ -81,8 +84,6 @@ const SignUp = () => {
         password,
       })
       .then((res) => {
-        console.log(res);
-        
         setSignUpSuccess(true);
       }) // 성공
       .catch((err) => {
@@ -139,7 +140,7 @@ const SignUp = () => {
           
           {mismatchError && <Error>비밀번호가 일치하지 않습니다.</Error>}
           {signUpError && <Error>{signUpError}</Error>}
-          {signUpSuccess && <Success>회원가입되었습니다! 로그인해주세요.</Success>}
+          {signUpSuccess && <Success>회원가입되었습니다! 로그인 페이지로 이동합니다.</Success>}
         </Label>
         <Button type="submit">회원가입</Button>
       </Form>
