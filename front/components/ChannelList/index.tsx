@@ -17,7 +17,7 @@ const ChannelList: FC<Props> = () => {
     dedupingInterval: 2000, // 2초
   });
   const { data: channelData } = useSWR<IChannel[]>(userData ? `/api/workspaces/${workspace}/channels` : null, fetcher);
-
+  
   const toggleChannelCollapse = useCallback(() => {
     setChannelCollapse((prev) => !prev);
   }, [channelCollapse]);
@@ -35,7 +35,7 @@ const ChannelList: FC<Props> = () => {
         <span>Channels</span>
       </h2>
       <div>
-        {!channelCollapse &&
+        {!channelCollapse && Array.isArray(channelData) &&
           channelData?.map((channel) => {
             return <EachChannel key={channel.id} channel={channel} />;
           })}
