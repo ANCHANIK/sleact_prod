@@ -1,10 +1,12 @@
 1. Unauthorized respone 처리
   v 1) 그냥 login 눌렀을때
   v 2) 등록된 이메일 없을때
+  3) nickname 중복
 
 2. 회원가입 완료 됐을때
-  1) 바로 로그인 페이지 이동
+  v 1) 3초 후 로그인 페이지 이동
   2) 이메일 형식이 안맞을때
   v 3) 회원가입 디버깅
 
 3. websocket 에러
+4. channel 만들기 에러 수정
