@@ -31,10 +31,13 @@ const CreateChannelModal: VFC<Props> = ({ show, onCloseModal, setShowCreateChann
       dedupingInterval: 2000,
     },
   );
-  const { data: channelData, mutate: mutateChannel } = useSWR<IChannel[]>(
+  const { data: channelData, mutate: mutateChannel, isValidating: isValidatingChannel } = useSWR<IChannel[]>(
     userData ? `/api/workspaces/${workspace}/channels` : null,
     // 로그인 상태일때만 channel 정보를 가져옴
     fetcher,
+    {
+      dedupingInterval: 2000,
+    }
   );
 
   const onCreateChannel = useCallback(
@@ -54,7 +57,7 @@ const CreateChannelModal: VFC<Props> = ({ show, onCloseModal, setShowCreateChann
         .then((response) => {
           setShowCreateChannelModal(false);
           setNewChannel('');
-          mutateChannel(response.data, false);
+          mutateChannel();
         })
         .catch((error) => {
           console.dir(error);

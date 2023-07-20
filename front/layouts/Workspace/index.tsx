@@ -36,8 +36,6 @@ import DMList from '@components/DMList';
 import useSocket from '@hooks/useSocket';
 
 //code spliting
-// import Channel from '@pages/Channel';
-// import DirectMessage from '@pages/DirectMessage';
 const Channel = loadable(() => import('@pages/Channel'));
 const DirectMessage = loadable(() => import('@pages/DirectMessage'));
 
@@ -72,11 +70,11 @@ const Workspace: VFC = () => {
 
   //socket
   const [socket, disconnect] = useSocket(workspace);
-
+  
   // socket 로그인시 연결해주는 로직
   useEffect(() => {
     if (channelData && userData && socket) {
-      socket.emit('login', { id: userData.id, channels: channelData.map((v) => v.id) });
+      socket.emit('login', { id: userData.id, channels: channelData?.map((v) => v.id) });
     }
   }, [socket, channelData, userData]);
   // socket 연결 해제
