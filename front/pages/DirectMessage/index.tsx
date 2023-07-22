@@ -125,6 +125,8 @@ const DirectMessage = () => {
 
   const onDrop = useCallback(
     (e) => {
+      console.log(e);
+      
       e.preventDefault();
       const formData = new FormData();
       if (e.dataTransfer.items) {
@@ -137,6 +139,8 @@ const DirectMessage = () => {
       } else {
         for (let i = 0; i < e.dataTransfer.files.length; i++) {
           const files = e.dataTransfer.files[i];
+          console.log(files);
+          
           formData.append('image', files);
         }
       }
