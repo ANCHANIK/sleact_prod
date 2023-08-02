@@ -4,13 +4,14 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "dev": "nodemon app",
+    "dev": "concurrently \"nodemon app\" \"npm run dev --prefix ../front\"",
     "start": "cross-env NODE_ENV=production pm2 start app.js"
   },
   "author": "ZeroCho",
   "license": "MIT",
   "dependencies": {
     "bcrypt": "^5.1.0",
+    "concurrently": "^8.2.0",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
     "cross-env": "^7.0.3",
