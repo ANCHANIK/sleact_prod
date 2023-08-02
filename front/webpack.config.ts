@@ -84,7 +84,7 @@ const config: Configuration = {
     static: { directory: path.resolve(__dirname) },
     proxy: {
       '/api/': {
-        target: 'http://34.64.251.46:8000/proxy/8081',
+        target: 'http://34.22.83.113:8000/proxy/8081',
         changeOrigin: true,
       },
     },
